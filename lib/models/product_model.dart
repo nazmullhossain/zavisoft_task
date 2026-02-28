@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 class Product {
   final int id;
@@ -52,6 +53,7 @@ class User {
   final String firstName;
   final String lastName;
   final String phone;
+  final Address address;
 
   User({
     required this.id,
@@ -60,6 +62,7 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.phone,
+    required this.address,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -70,6 +73,35 @@ class User {
       firstName: json['name']['firstname'],
       lastName: json['name']['lastname'],
       phone: json['phone'],
+      address: Address.fromJson(json['address']),
+    );
+  }
+
+  @override
+  String toString() {
+    return 'User: $firstName $lastName, Email: $email';
+  }
+}
+
+class Address {
+  final String city;
+  final String street;
+  final int number;
+  final String zipcode;
+
+  Address({
+    required this.city,
+    required this.street,
+    required this.number,
+    required this.zipcode,
+  });
+
+  factory Address.fromJson(Map<String, dynamic> json) {
+    return Address(
+      city: json['city'],
+      street: json['street'],
+      number: json['number'],
+      zipcode: json['zipcode'],
     );
   }
 }
